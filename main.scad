@@ -1,28 +1,32 @@
 
-// Housing for 
+// Housing for BME/BMP280 temperature/humidity/pressure sensor
+// Developed for Australian Plant Phenomics Facility, ANU node
+
+fudge=0.2;
+fudge_adj=fudge/2;
 
 module sensor(){
-cube([13,10.4,1.6]);
+cube([13+fudge, 10.4+fudge, 1.6+fudge]);
 }
 
 module sensor_rail(){
 difference(){
-    translate([0.5,-1,-1]) cube([11,12.4,3.6]);
+    translate([fudge,-1+fudge_adj,-1+fudge_adj]) cube([11,12.4,3.6]);
     union(){
         translate([-2,1.5,-2]) cube([15,7.4,5.6]);
-    sensor();
+        sensor();
     }
 }
 }
 
 module pipe_holder(){
     difference(){
-    cylinder(4,7,7);
+        cylinder(4,7,7);
         translate([0,0,-0.5]) cylinder(5,6,6);
     }
 }
 
 union(){
-translate([0.5,-5.25,2]) rotate([0,-90,0]) sensor_rail();
-pipe_holder();
+    translate([0.5,-5.25,2]) rotate([0,-90,0]) sensor_rail();
+    pipe_holder();
 }
