@@ -4,9 +4,17 @@
 
 fudge=0.2;
 fudge_adj=fudge/2;
+$fn=64;
 
 module sensor(){
 cube([13+fudge, 10.4+fudge, 1.6+fudge]);
+}
+
+module sensor_ring(){
+    difference(){
+        cylinder(1,7,7);
+        translate([0,0,-0.5]) cylinder(2,6,6);
+    }
 }
 
 module sensor_rail(){
@@ -26,7 +34,4 @@ module pipe_holder(){
     }
 }
 
-union(){
-    translate([0.5,-5.25,2]) rotate([0,-90,0]) sensor_rail();
-    pipe_holder();
-}
+sensor_ring();
