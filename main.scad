@@ -11,9 +11,11 @@ cube([13+fudge, 10.4+fudge, 1.6+fudge]);
 }
 
 module sensor_ring(){
+    inner=4.0;
+    outer=2;
     difference(){
-        cylinder(1,7,7);
-        translate([0,0,-0.5]) cylinder(2,6,6);
+        cylinder(1,inner+outer,inner+outer);
+        translate([0,0,-fudge_adj]) cylinder(2,inner+fudge,inner+fudge);
     }
 }
 
