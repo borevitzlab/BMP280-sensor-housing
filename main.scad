@@ -6,6 +6,8 @@ fudge=0.2;
 fudge_adj=fudge/2;
 $fn=64;
 
+pipe_diameter_inner=18;
+
 module sensor(){
 cube([13+fudge, 10.4+fudge, 1.6+fudge]);
 }
@@ -36,4 +38,6 @@ module pipe_holder(){
     }
 }
 
-sensor_ring();
+
+rotate([0,90,0]) sensor_ring();
+pipe_holder();
