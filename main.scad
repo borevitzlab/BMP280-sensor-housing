@@ -14,14 +14,14 @@ cube([13+fudge, 10.4+fudge, 1.6+fudge]);
 
 module ring(od, id, height){
     difference(){
-        cylinder(height,od,od);
-        translate([0,0,-fudge_adj]) cylinder(height+fudge,id,id);
+        cylinder(height,od/2,od/2);
+        translate([0,0,-fudge_adj]) cylinder(height+fudge,id/2,id/2);
     }
 }
 
 module sensor_ring(){
-    inner=4.0/2;
-    outer=2/2;
+    inner=4.0;
+    outer=2;
     ring(inner+outer, inner+fudge, 1);
 }
 
@@ -36,15 +36,41 @@ difference(){
 }
 }
 
+module cable_holder(){
+    ring(13,12,4);
+}
+
 module pipe_holder(){
-    ring(7,6,4);
+    ring(18,16.5,4);
+}
+
+module circle_line(){
+    translate([4,0,0]) difference(){
+        ring(10,9,4);
+        rotate([0,0,35]) translate([-5,-4,-fudge]) cube([15,15,5]);
+    }
+}
+
+module circle_lines(num){
+    function angle(i,num)=i*(360/num); // evenly spread arms in a circle
+    for(i=[1:num]){
+        // add an arm each rotation
+        rotate([0,0,angle(i,num)])
+        circle_line();
+    }
 }
 
 
-translate([0,3.5,29]) rotate([0,90,0]) sensor_ring();
-translate([-1,6,0]) cube([2,1,30]);
+union(){
+    translate([0,3.5,29]) rotate([0,90,0]) sensor_ring();
+    translate([-1,6,0]) cube([2,1,30]);
+}
 
-difference(){
+union(){
+    translate([0,0,0]) circle_lines(7);
     pipe_holder();
-    //translate([-7,-13,-1]) cube([15,15,6]);
+    difference(){
+        cable_holder();
+        //translate([-7,-13,-1]) cube([15,15,6]);
+    }
 }
