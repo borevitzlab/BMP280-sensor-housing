@@ -12,7 +12,7 @@ fudge=0.2; // [0.1:0.05:0.5]
 $fn=128; // [32, 64, 128, 256]
 
 // Diameter of the largest bit
-pipe_diameter_inner=18;
+//pipe_diameter_inner=18;
 
 // Number of arms connecting cable and pipe holder
 n_arms = 7; // [1:1:30]
@@ -56,7 +56,17 @@ difference(){
 }
 
 module cable_holder(){
-    ring(13,12,4);
+    //ring(13,12,4);
+    thickness=1;
+    id1=12;
+    id2=5;
+    od1=id2+thickness;
+    od2=id1+thickness;
+    height=10;
+    difference(){
+        cylinder(height,od1/2,od2/2);
+        translate([0,0,-fudge_adj]) cylinder(height+fudge,id2/2,id1/2);
+    }
 }
 
 module pipe_holder(){
@@ -64,9 +74,9 @@ module pipe_holder(){
 }
 
 module circle_line(){
-    translate([4,0,0]) difference(){
+    translate([3.5,0,1]) difference(){
         ring(10,9,4);
-        rotate([0,0,35]) translate([-5,-4,-fudge]) cube([15,15,5]);
+        rotate([0,0,20]) translate([-5,-3.5,-fudge]) cube([15,15,5]);
     }
 }
 
@@ -74,7 +84,7 @@ module circle_lines(num){
     function angle(i,num)=i*(360/num)+arm_adjustment; // evenly spread arms in a circle
     for(i=[1:num]){
         // add an arm each rotation
-        rotate([0,0,angle(i,num)])
+        rotate([20,0,angle(i,num)])
         circle_line();
     }
 }
@@ -90,10 +100,7 @@ module base_bracer(){
     color("orange") union(){
         translate([0,0,0]) circle_lines(n_arms);
         pipe_holder();
-        difference(){
-            cable_holder();
-            //translate([-7,-13,-1]) cube([15,15,6]);
-        }
+        translate([0,0,-6]) cable_holder();
     }
 }
 
