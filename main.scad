@@ -60,7 +60,6 @@ module circle_lines(num){
     }
 }
 
-
 union(){
     translate([0,3.5,29]) rotate([0,90,0]) sensor_ring();
     translate([-1,6,0]) cube([2,1,30]);
