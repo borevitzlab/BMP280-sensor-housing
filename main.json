@@ -1,0 +1,11 @@
+{
+    "parameterSets": {
+        "design default values": {
+            "$fn": "32",
+            "fudge": "0.2",
+            "pipe_diameter_inner": "18"
+        }
+    },
+    "parameterSets": "",
+    "fileFormatVersion": "1"
+}

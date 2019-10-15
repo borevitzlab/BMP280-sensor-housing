@@ -2,11 +2,30 @@
 // Housing for BME/BMP280 temperature/humidity/pressure sensor
 // Developed for Australian Plant Phenomics Facility, ANU node
 
-fudge=0.2;
-fudge_adj=fudge/2;
-$fn=64;
 
+/* [Settings:] */ 
+
+// adjustment for rounding error
+fudge=0.2; // [0.1:0.05:0.5]
+
+// curve resolution
+$fn=128; // [32, 64, 128, 256]
+
+// Diameter of the largest bit
 pipe_diameter_inner=18;
+
+// Number of arms connecting cable and pipe holder
+n_arms = 7; // [1:1:30]
+
+// Adjust position of connector arms
+arm_adjustment = 10; //[0:1:180]
+
+// Select part
+//part = "all"; // [all, base ring, sensor mount]
+
+/* [Hidden] */ 
+// Derived variables and constants
+fudge_adj=fudge/2;
 
 module sensor(){
 cube([13+fudge, 10.4+fudge, 1.6+fudge]);
@@ -52,7 +71,7 @@ module circle_line(){
 }
 
 module circle_lines(num){
-    function angle(i,num)=i*(360/num); // evenly spread arms in a circle
+    function angle(i,num)=i*(360/num)+arm_adjustment; // evenly spread arms in a circle
     for(i=[1:num]){
         // add an arm each rotation
         rotate([0,0,angle(i,num)])
@@ -60,16 +79,37 @@ module circle_lines(num){
     }
 }
 
-union(){
-    translate([0,3.5,29]) rotate([0,90,0]) sensor_ring();
-    translate([-1,6,0]) cube([2,1,30]);
-}
-
-union(){
-    translate([0,0,0]) circle_lines(7);
-    pipe_holder();
-    difference(){
-        cable_holder();
-        //translate([-7,-13,-1]) cube([15,15,6]);
+module sensor_mount_ring(){
+    color("lightblue") union(){
+        translate([0,3.5,29]) rotate([0,90,0]) sensor_ring();
+        translate([-1,6.2,0.2]) cube([2,1,30]);
     }
 }
+
+module base_bracer(){
+    color("orange") union(){
+        translate([0,0,0]) circle_lines(n_arms);
+        pipe_holder();
+        difference(){
+            cable_holder();
+            //translate([-7,-13,-1]) cube([15,15,6]);
+        }
+    }
+}
+
+sensor_mount_ring();
+base_bracer();
+
+//if((part=="all")||(part=="base ring")){
+//    difference(){
+//        base_bracer();
+//        union(){
+//            translate([fudge,-fudge,0]) sensor_mount_ring();
+//            translate([-fudge,-fudge,0]) sensor_mount_ring();
+//        }
+//    }
+//}
+//
+//if((part=="all")||(part=="sensor mount")){
+//    sensor_mount_ring();
+//}
