@@ -1,2 +1,7 @@
 # BMP280-sensor-housing
-3D printed housing for the BME/BMP280 temperature/humidity/pressure sensor
+
+![Rendering of the sensor housing](main.png)
+
+3D printed housing for the BME/BMP280 temperature/humidity/pressure sensor.
+
+Used with [OpenSCAD Customizer](https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Customizer).
