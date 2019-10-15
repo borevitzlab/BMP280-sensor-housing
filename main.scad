@@ -80,7 +80,7 @@ module circle_lines(num){
 }
 
 module sensor_mount_ring(){
-    color("lightblue") union(){
+    color("DeepSkyBlue") union(){
         translate([0,3.5,29]) rotate([0,90,0]) sensor_ring();
         translate([-1,6.2,0.2]) cube([2,1,30]);
     }
