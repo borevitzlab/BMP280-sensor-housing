@@ -9,16 +9,16 @@
 fudge=0.2; // [0.1:0.05:0.5]
 
 // curve resolution
-$fn=128; // [32, 64, 128, 256]
+$fn=32; // [32, 64, 128, 256]
 
 // Diameter of the largest bit
 //pipe_diameter_inner=18;
 
 // Number of arms connecting cable and pipe holder
-n_arms = 7; // [1:1:30]
+//n_arms = 7; // [1:1:30]
 
 // Adjust position of connector arms
-arm_adjustment = 10; //[0:1:180]
+//arm_adjustment = 10; //[0:1:180]
 
 // Select part
 //part = "all"; // [all, base ring, sensor mount]
@@ -59,10 +59,10 @@ module cable_holder(){
     //ring(13,12,4);
     thickness=1;
     id1=12;
-    id2=5;
+    id2=2;
     od1=id2+thickness;
     od2=id1+thickness;
-    height=10;
+    height=12;
     difference(){
         cylinder(height,od1/2,od2/2);
         translate([0,0,-fudge_adj]) cylinder(height+fudge,id2/2,id1/2);
@@ -70,7 +70,7 @@ module cable_holder(){
 }
 
 module pipe_holder(){
-    ring(18,16.5,4);
+    ring(18,12,8);
 }
 
 module circle_line(){
@@ -91,16 +91,16 @@ module circle_lines(num){
 
 module sensor_mount_ring(){
     color("DeepSkyBlue") union(){
-        translate([0,3.5,29]) rotate([0,90,0]) sensor_ring();
-        translate([-1,6.2,0.2]) cube([2,1,30]);
+        translate([0,3.5,34]) rotate([0,90,0]) sensor_ring();
+        translate([-1,6.2,4.2]) cube([2,1,30]);
     }
 }
 
 module base_bracer(){
     color("orange") union(){
-        translate([0,0,0]) circle_lines(n_arms);
+        //translate([0,0,0]) circle_lines(n_arms);
         pipe_holder();
-        translate([0,0,-6]) cable_holder();
+        translate([0,0,-12]) cable_holder();
     }
 }
 
