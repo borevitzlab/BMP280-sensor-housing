@@ -1,6 +1,6 @@
 # BMP280-sensor-housing
 
-![Rendering of the sensor housing](main.jpg)
+<img src="main.jpg" alt="Rendering of the sensor housing" height="200px">
 
 3D printed housing for the BME/BMP280 temperature/humidity/pressure sensor.
 
