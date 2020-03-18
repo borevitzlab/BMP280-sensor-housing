@@ -70,7 +70,7 @@ module cable_holder(){
 }
 
 module pipe_holder(){
-    ring(18,12,8);
+    ring(13,11,8);
 }
 
 module circle_line(){
@@ -91,8 +91,8 @@ module circle_lines(num){
 
 module sensor_mount_ring(){
     color("DeepSkyBlue") union(){
-        translate([0,3.5,34]) rotate([0,90,0]) sensor_ring();
-        translate([-1,6.2,4.2]) cube([2,1,30]);
+        translate([0,2.5,34]) rotate([0,90,0]) sensor_ring();
+        translate([-1,5.2,4.2]) cube([2,1,30]);
     }
 }
 
